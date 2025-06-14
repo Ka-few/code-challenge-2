@@ -1,0 +1,84 @@
+ body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #FEF7CD;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #EA384C;
+    font-size: 3rem;
+    text-align: center;
+    text-decoration: solid;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 40px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+h2 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.input, .output {
+  background-color: #eed6c2;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.guest-txt {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+}
+
+.controller label {
+  display: inline-block;
+  margin-right: 15px;
+  font-weight: 500;
+}
+
+.controller input[type="radio"] {
+  margin-right: 5px;
+}
+
+.btn-submit {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-submit:hover {
+  background-color: #45a049;
+}
+
+.btn-delete-by-name {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-delete-by-name:hover {
+  background-color: #c0392b;
+} 
