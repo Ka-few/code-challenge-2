@@ -17,9 +17,18 @@ const renderGuests = ()=> {
         let entry = document.createElement('div');
         entry.classList.add('guest-entry');
 
-        const categoryClass = guest.category.toLowerCase();
+        // Assign a category class for coloring
+        const categoryClass = guest.category.toLowerCase(); // "family", "friend", "collegue"
+        const rsvpStatus = guest.isAttending ? '👍 Attending' : '👎 Not Attending';
+        const rsvpClass = guest.isAttending ? 'attending' : 'not-attending';
 
-        entry.innerHTML = `<p> ${guest.name} ${guest.category}</p>`
+        entry.innerHTML = `<p> 
+                            <strong>${index + 1}.</strong> ${guest.name}
+                            <span class="category-label ${categoryClass}">${guest.category}</span>
+                            <span class="rsvp-status ${rsvpClass}">${rsvpStatus}</span>
+                        </p>
+                        <button class="toggle-rsvp" data-index="${index}">Toggle RSVP</button>
+                        `
         displayBox.appendChild(entry);
 
     })
@@ -99,6 +108,18 @@ deleteGuest.addEventListener('click', function () {
     input.value = ''; // Clear input
 });
 
+// Handle toggleRsvp using event delegation
 
-// here the data held in localStorage rendered on page load
+let displayGuest = document.getElementById('display-box');
+displayGuest.addEventListener('click', function (e) {
+    const guests = getGuests();
+    const index = e.target.getAttribute('data-index');
+
+if (e.target.classList.contains('toggle-rsvp')) {
+        guests[index].isAttending = !guests[index].isAttending;
+        saveGuests(guests);
+        renderGuests();
+    }
+});
+// data held in localStorage rendered on page load
 document.addEventListener('DOMContentLoaded', renderGuests);
