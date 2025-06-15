@@ -19,15 +19,19 @@ const renderGuests = ()=> {
 
         // Assign a category class for coloring
         const categoryClass = guest.category.toLowerCase(); // "family", "friend", "collegue"
+        //Assign rsvpStatus and rsvpClass
         const rsvpStatus = guest.isAttending ? '👍 Attending' : '👎 Not Attending';
         const rsvpClass = guest.isAttending ? 'attending' : 'not-attending';
-
+        
+        //create a div for holding the guest entry {name, category, rsvpStatus} and toggle rsvp, edit and remove buttons
         entry.innerHTML = `<p> 
                             <strong>${index + 1}.</strong> ${guest.name}
                             <span class="category-label ${categoryClass}">${guest.category}</span>
                             <span class="rsvp-status ${rsvpClass}">${rsvpStatus}</span>
                         </p>
                         <button class="toggle-rsvp" data-index="${index}">Toggle RSVP</button>
+                        <button class="edit-btn" data-index="${index}">Edit</button>
+                        <button class="remove" data-index="${index}">Remove</button>
                         `
         displayBox.appendChild(entry);
 
@@ -108,12 +112,36 @@ deleteGuest.addEventListener('click', function () {
     input.value = ''; // Clear input
 });
 
-// Handle toggleRsvp using event delegation
+// Handle toggleRsvp, edit and remove using event delegation
 
 let displayGuest = document.getElementById('display-box');
 displayGuest.addEventListener('click', function (e) {
     const guests = getGuests();
     const index = e.target.getAttribute('data-index');
+
+if (e.target.classList.contains('remove')) {
+        if (index !== null && guests[index]) {
+            guests.splice(index, 1);
+            saveGuests(guests);
+            renderGuests();
+        }
+    }
+
+    if (e.target.classList.contains('edit-btn')) {
+        const guest = guests[index];
+        document.querySelector('.guest-txt').value = guest.name;
+
+        // Check the correct radio
+        const radios = document.querySelectorAll('input[name="guest-type"]');
+        radios.forEach(radio => {
+            if (radio.value === guest.category) radio.checked = true;
+        });
+
+        // Remove original for update
+        guests.splice(index, 1);
+        saveGuests(guests);
+        renderGuests();
+    }
 
 if (e.target.classList.contains('toggle-rsvp')) {
         guests[index].isAttending = !guests[index].isAttending;
