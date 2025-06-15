@@ -62,6 +62,31 @@ addGuest.addEventListener('click', function(e) {
     radios.forEach(r => r.checked = false);
 });
 
+//delete guest by name
+let deleteGuest = document.querySelector('.btn-delete-guest');
+deleteGuest.addEventListener('click', function () {
+    const input = document.querySelector('.guest-txt');
+    const nameToDelete = input.value.toLowerCase();
+
+    if (!nameToDelete) {
+        alert('Please enter a guest name to delete.');
+        return;
+    }
+
+    let guests = getGuests();
+    const index = guests.findIndex(g => g.name.toLowerCase() === nameToDelete);
+
+    if (index === -1) {
+        alert(`No guest named "${input.value}" found.`);
+        return;
+    }
+
+    guests.splice(index, 1);
+    saveGuests(guests);
+    renderGuests();
+    input.value = ''; // Clear input
+});
+
 
 // here the data held in localStorage rendered on page load
 document.addEventListener('DOMContentLoaded', renderGuests);
