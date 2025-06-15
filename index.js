@@ -37,15 +37,15 @@ const renderGuests = ()=> {
 
     })
 }
-
+//add guest through the input box and submit button
 let addGuest = document.querySelector('.btn-submit');
 addGuest.addEventListener('click', function(e) {
     e.preventDefault();
 
-    let nameInput = document.querySelector('.guest-txt');
-    let name = nameInput.value; 
+    const nameInput = document.querySelector('.guest-txt');
+    const name = nameInput.value;
+    const radios = document.querySelectorAll('input[name=guest-type]');
 
-    let radios = document.querySelectorAll('input[name=guest-type]');
     let category = '';
 
     radios.forEach(radio => {
@@ -67,7 +67,7 @@ addGuest.addEventListener('click', function(e) {
     return;
     }
 
-    guests.push({ name, category });
+    
     saveGuests(guests);
     renderGuests();
 
@@ -78,13 +78,14 @@ addGuest.addEventListener('click', function(e) {
         return;
     }
 
-    guests.push({ name, category});
+    //save the guest entry to locaStorage (saveGuests()) as an object array
+    guests.push({ name, category, isAttending: false});
     saveGuests(guests);
     renderGuests();
 
     //  clear form fields after submission
     nameInput.value = '';
-    radios.forEach(r => r.checked = false);
+    radios.forEach(radio => radio.checked = false);
 });
 
 //delete guest by name
@@ -112,7 +113,7 @@ deleteGuest.addEventListener('click', function () {
     input.value = ''; // Clear input
 });
 
-// Handle toggleRsvp, edit and remove using event delegation
+// Handle toggle rsvp, edit and remove using event delegation
 
 let displayGuest = document.getElementById('display-box');
 displayGuest.addEventListener('click', function (e) {
@@ -131,7 +132,7 @@ if (e.target.classList.contains('remove')) {
         const guest = guests[index];
         document.querySelector('.guest-txt').value = guest.name;
 
-        // Check the correct radio
+        // Check the correct radio (category) selection
         const radios = document.querySelectorAll('input[name="guest-type"]');
         radios.forEach(radio => {
             if (radio.value === guest.category) radio.checked = true;
