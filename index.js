@@ -47,6 +47,7 @@ addGuest.addEventListener('click', function(e) {
     }
     
     let guests = getGuests(); // retrieve before using
+
     //Limit the number of guests to 10
     if (guests.length >= 10) {
     alert('Guest limit reached (maximum 10).');
@@ -54,6 +55,17 @@ addGuest.addEventListener('click', function(e) {
     }
 
     guests.push({ name, category });
+    saveGuests(guests);
+    renderGuests();
+
+    // Prevent duplicate (same name and category)
+    const isDuplicate = guests.some(g => g.name.toLowerCase() === name.toLowerCase() && g.category === category);
+    if (isDuplicate) {
+        alert('This guest and category already exist.');
+        return;
+    }
+
+    guests.push({ name, category});
     saveGuests(guests);
     renderGuests();
 
