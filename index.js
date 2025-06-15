@@ -30,14 +30,14 @@ addGuest.addEventListener('click', function(e) {
     e.preventDefault();
 
     let nameInput = document.querySelector('.guest-txt');
-    let name = nameInput.value.trim(); // trim to remove whitespace
+    let name = nameInput.value; 
 
     let radios = document.querySelectorAll('input[name=guest-type]');
     let category = '';
 
     radios.forEach(radio => {
         if (radio.checked) {
-            category = radio.value; // safer and cleaner
+            category = radio.value; 
         }
     });
 
@@ -45,13 +45,19 @@ addGuest.addEventListener('click', function(e) {
         alert("Please enter a name and select a category!");
         return;
     }
-
+    
     let guests = getGuests(); // retrieve before using
+    //Limit the number of guests to 10
+    if (guests.length >= 10) {
+    alert('Guest limit reached (maximum 10).');
+    return;
+    }
+
     guests.push({ name, category });
     saveGuests(guests);
     renderGuests();
 
-    // Optional: clear form fields after submission
+    //  clear form fields after submission
     nameInput.value = '';
     radios.forEach(r => r.checked = false);
 });
