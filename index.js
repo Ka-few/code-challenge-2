@@ -9,7 +9,7 @@ function saveGuests(guests) {
 }
 
 //This function renders the guest data on the output container which is the display-box
-const renderGuests = ()=> {
+const renderGuests = function () {
     let displayBox = document.getElementById('display-box');
     displayBox.innerHTML = '';
     let guests = getGuests();
