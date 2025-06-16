@@ -3,7 +3,7 @@ function getGuests() {
     return JSON.parse(localStorage.getItem('guests') || '[]');
 }
 
-// This function will enable the application to save guest data from localStorage
+// This function will enable the application to save guest data to localStorage
 function saveGuests(guests) {
     localStorage.setItem('guests', JSON.stringify(guests));
 }
@@ -46,7 +46,7 @@ addGuest.addEventListener('click', function(e) {
     const name = nameInput.value;
     const radios = document.querySelectorAll('input[name=guest-type]');
 
-    let category = '';
+    let category = ''; //clears the category (radio input)
 
     radios.forEach(radio => {
         if (radio.checked) {
@@ -59,11 +59,11 @@ addGuest.addEventListener('click', function(e) {
         return;
     }
     
-    let guests = getGuests(); // retrieve before using
+    let guests = getGuests(); // retrieve from localStorage before using
 
     //Limit the number of guests to 10
     if (guests.length >= 10) {
-    alert('Guest limit reached (maximum 10).');
+    alert('Sorry! Guest limit reached (maximum 10).');
     return;
     }
 
